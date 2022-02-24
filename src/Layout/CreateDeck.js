@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { createDeck } from "../utils/api";
 import { useHistory } from "react-router-dom";
 import BreadCrumb from "./BreadCrumb";
+import DeckForm from "./DeckForm";
 export default function CreateDeck() {
     const history = useHistory();
     const [newDeck, setNewDeck] = useState({name:'', description:'', cards:[]})
@@ -28,18 +29,7 @@ export default function CreateDeck() {
         <div>
             <BreadCrumb deck={{name:'Create Deck'}}/>
             <h2>Create Deck</h2>
-            <form onSubmit={newDeckSubmitHandler}>
-                <div className="form-group">
-                <label htmlFor='deck-name'>Name</label>
-                <input className="form-control" id="deck-name" placeholder="Deck Name" type='text' name='name' value={newDeck.name} onChange={deckChangeHandler}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="deck-description">Description</label>
-                    <textarea className="form-control" name="description" id="deck-description" type='text' placeholder="Brief description of the deck" value={newDeck.description} onChange={deckChangeHandler} />
-                </div>
-                <button type='button' className="btn btn-secondary" onClick={() => history.push("/")}>Cancel</button>
-                <button type='submit' className="btn btn-primary">Submit</button>
-            </form>
+            <DeckForm handleChange={deckChangeHandler} handleSubmit={newDeckSubmitHandler} deck={newDeck}/>
         </div>
 
     )

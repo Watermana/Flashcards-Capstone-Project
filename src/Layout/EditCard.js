@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { readDeck, readCard, updateCard } from "../utils/api";
 import BreadCrumb from "./BreadCrumb";
+import CardForm from "./CardForm";
 
 export default function EditCard() {
     const {deckId, cardId} = useParams();
@@ -42,20 +43,7 @@ export default function EditCard() {
         <div>
             <BreadCrumb deck={deck} subname={`Edit Card ${cardEdit.id}`}/>
             <h1>Edit Card</h1>
-            <form onSubmit={cardEditSubmitHandler}>
-                <div className="form-group">
-                <label htmlFor="front">Front</label>
-                <textarea className="form-control" id="front" name='front' value={cardEdit.front} onChange={cardEditChangeHandler}/>
-                </div>
-                <div className="form-group">
-                <label htmlFor="back">Back</label>
-                <textarea className="form-control" id="back" name="back" value={cardEdit.back} onChange={cardEditChangeHandler} />
-                </div>
-                <div>
-                    <button className="btn btn-secondary" type="button" onClick={() => history.goBack()}>Cancel</button>
-                    <button className="btn btn-primary" type="submit">Submit</button>
-                </div>
-            </form>
+            <CardForm handleChange={cardEditChangeHandler} handleSubmit={cardEditSubmitHandler} card={cardEdit}/>
         </div>
     )
 }

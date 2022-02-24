@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { readDeck, createCard } from "../utils/api";
 import BreadCrumb from "./BreadCrumb";
+import CardForm from "./CardForm";
 export default function CreateCards() {
     const {deckId} = useParams();
-    const history = useHistory();
     const [ newCard, setNewCard] = useState({front:'', back:''})
     const [ deck, setDeck] = useState({})
 
@@ -35,20 +35,7 @@ export default function CreateCards() {
         <>
         <BreadCrumb deck={deck} subname ="Add Card"/>
         <h2><span>{deck.name}</span>: <span>Add Card</span></h2>
-        <form onSubmit={newCardSubmitHandler}>
-            <div className="form-group">
-            <label htmlFor="front">Front</label>
-            <textarea className="form-control" id="front" name="front" placeholder="Front side of card" value={newCard.front} onChange={newCardChangeHandler} />
-            </div>
-            <div className="form-group">
-            <label htmlFor="back">Back</label>
-            <textarea className="form-control" id="back" name="back" placeholder="Back side of card" value={newCard.back} onChange={newCardChangeHandler} />
-            </div>
-            <div>
-            <button type="button" className="btn btn-secondary" onClick={() => history.goBack()}>Done</button>
-            <button type="submit" className="btn btn-primary">Save</button>
-            </div>
-        </form>
+        <CardForm handleChange={newCardChangeHandler} handleSubmit={newCardSubmitHandler} card={newCard} />
         </>
     )
 }
